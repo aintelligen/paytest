@@ -36,16 +36,11 @@ public.ajaxLoadData = function(url, data, callback, type, async, dataType) {
     success: function(result, textStatus) {
       result = result || '';
       if (callback) {
-        if (result != '') {
-          if (result.code == 106 || result.code == 3001) {
-            location.href = h5Url + '/order/login.html';
-          }
-        }
         callback(result);
       }
     },
     error: function(errorMsg) {
-      alert('链接服务器失败');
+      alert('链接服务器失a败');
       if (errorMsg.responseText) {
         if (typeof errorMsg.responseText == 'string') {
           try {
