@@ -174,8 +174,8 @@ public.pathName = function() {
     h5Url = 'http://t7.aintelligen.com/';
   } else {
     //正式环境（灰度/全量）
-    context = 'http://m.aintelligen.com/';
-    h5Url = 'http://m.aintelligen.com/';
+    context = 'https://m.aintelligen.com/';
+    h5Url = 'https://m.aintelligen.com/';
   }
 
   public.localStorage.add('context', context);
