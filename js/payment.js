@@ -7,11 +7,10 @@ $(function() {
       $('.s-money_b .s-price').text('￥' + price);
       $('[event-payment]').on('click', function() {
         //获取code
-        // public.getCode();
         var appid = 'wx2ad7e44b51a54aa1';
         //获取 code
         var local = window.location.href;
-        var code = getParam('code');
+        var code = public.getParameter('code');
         if (code === null || code === '') {
           // 跳转至授权地址，该地址只支持微信浏览器打开
           window.location.href =
@@ -30,6 +29,7 @@ $(function() {
         var orderId = public.localStorage.get('orderId');
         var backUrl = h5Url + 'paymentSuccess.html?orderId=' + orderId;
         var orderNo = public.localStorage.get('orderNo');
+        console.log(code);
         public.getOpenid(code);
         public.onBridgeReady(orderNo, backUrl);
       }
