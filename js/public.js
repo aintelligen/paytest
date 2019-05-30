@@ -196,7 +196,7 @@ public.onBridgeReady = function(orderNo, backUrl) {
         appId: result.data.appId, // 必填，公众号的唯一标识
         timestamp: result.data.timeStamp, // 必填，生成签名的时间戳
         nonceStr: result.data.nonceStr, // 必填，生成签名的随机串
-        signature: result.data.ticketSign, // 必填，sdk权限签名，见附录1
+        signature: result.data.signature, // 必填，sdk权限签名，见附录1
         jsApiList: ['checkJsApi', 'chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
       });
       wx.ready(function() {

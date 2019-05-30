@@ -15,8 +15,8 @@ $(function() {
         var backUrl = h5Url + 'success.html?orderId=' + orderId;
         var orderNo = public.localStorage.get('orderNo');
         console.log(code);
-        public.getOpenid(code);
-        public.onBridgeReady(orderNo, backUrl);
+        // public.getOpenid(code);
+        // public.onBridgeReady(orderNo, backUrl);
       }
     }
   };
