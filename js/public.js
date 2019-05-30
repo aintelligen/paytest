@@ -323,13 +323,13 @@ public.getCode = function() {
   var url = context + 'wechat/isAuthorize';
   var callback = function(result) {
     if (result.code == '00000') {
-      // window.location.href = result.data.redirectUrl;
+      window.location.href = result.data.redirectUrl;
       console.log(result);
     } else {
       public.showValidateMsgTrsf(result.data);
     }
   };
-  public.ajaxLoadData(url, null, callback, 'get');
+  public.ajaxLoadData(url, { redirect_uri: window.location.origin }, callback, 'get');
 };
 
 /*
