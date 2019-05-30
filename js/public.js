@@ -275,65 +275,6 @@ public.getParameter = function(name) {
 };
 
 /*
- * 校验
- * */
-public.validate = function(context, options) {
-  var context = context ? context : $('body');
-  if (!options instanceof Array) {
-    return false;
-  }
-  for (var i = 0; i < options.length; i++) {
-    var validate = options[i];
-    if (!validate) {
-      continue;
-    }
-    var type = validate.type ? validate.type : 'input';
-    var id = validate.id ? validate.id : '';
-    var regExp = validate.regExp ? validate.regExp : 'not null';
-    var msg = validate.msg ? validate.msg : '内容不能为空';
-    var target = context.find('#' + id);
-    if (target.length === 0) {
-      continue;
-    }
-    if (type === 'input') {
-      var value = target.val();
-    } else {
-      var value = target.text();
-    }
-    value = $.trim(value);
-    if (regExp == 'not null') {
-      if (value.length == 0) {
-        public.showValidateMsgTrsf(msg);
-        return false;
-      }
-    } else {
-      if (regExp == 'tel') {
-        if (!value.match(/^1[3|4|5|8|7][0-9]\d{4,8}$/)) {
-          public.showValidateMsgTrsf(msg);
-          return false;
-        }
-      } else if (regExp == 'pwd') {
-        if (!value.match(/[^\w]{6,16}$/)) {
-          public.showValidateMsgTrsf(msg);
-          return false;
-        }
-      } else if (regExp == 'price') {
-        if (!value.match(/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/)) {
-          public.showValidateMsgTrsf(msg);
-          return false;
-        }
-      } else if (regExp == 'imei') {
-        if (!value.match(/^[0-9a-zA-Z]{1,30}$/)) {
-          public.showValidateMsgTrsf(msg);
-          return false;
-        }
-      }
-    }
-  }
-  return true;
-};
-
-/*
  * 提示框
  * */
 public.showValidateMsgTrsf = function(msg, times) {
@@ -382,7 +323,8 @@ public.getCode = function() {
   var url = context + 'wechat/isAuthorize';
   var callback = function(result) {
     if (result.code == '00000') {
-      window.location.href = result.data.redirectUrl;
+      // window.location.href = result.data.redirectUrl;
+      console.log(result);
     } else {
       public.showValidateMsgTrsf(result.data);
     }
