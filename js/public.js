@@ -320,16 +320,16 @@ public.isWeixin = function() {
  * 获取code
  * */
 public.getCode = function() {
-  var url = context + 'wechat/isAuthorize';
+  var url = context + 'wechat/isAuthorize?redirect_uri' + window.location.origin;
   var callback = function(result) {
     if (result.code == '00000') {
-      window.location.href = result.data.redirectUrl;
+      // window.location.href = result.data.redirectUrl;
       console.log(result);
     } else {
       public.showValidateMsgTrsf(result.data);
     }
   };
-  public.ajaxLoadData(url, { redirect_uri: window.location.origin }, callback, 'get');
+  public.ajaxLoadData(url, window.location.origin, callback, 'get');
 };
 
 /*
