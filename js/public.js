@@ -320,7 +320,7 @@ public.isWeixin = function() {
  * 获取code
  * */
 public.getCode = function() {
-  var url = context + 'wechat/isAuthorize?redirect_uri' + window.location.origin;
+  var url = context + 'wechat/isAuthorize?redirect_uri=' + window.location.origin;
   var callback = function(result) {
     if (result.code == '00000') {
       // window.location.href = result.data.redirectUrl;
