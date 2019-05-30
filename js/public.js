@@ -323,13 +323,13 @@ public.getCode = function() {
   var url = context + 'wechat/isAuthorize?redirect_uri=' + encodeURIComponent(window.location.origin);
   var callback = function(result) {
     if (result.code == '00000') {
-      // window.location.href = result.data.redirectUrl;
       console.log(result);
+      window.location.href = result.data.redirectUrl;
     } else {
       public.showValidateMsgTrsf(result.data);
     }
   };
-  public.ajaxLoadData(url, null, callback, 'get');
+  public.ajaxLoadData(url, '', callback, 'get');
 };
 
 /*
@@ -345,7 +345,7 @@ public.getOpenid = function(code) {
       public.showValidateMsgTrsf(result.data);
     }
   };
-  public.ajaxLoadData(url, null, callback, 'get', null, false);
+  public.ajaxLoadData(url, '', callback, 'get', null, false);
 };
 
 public.getPath = function() {
