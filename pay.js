@@ -336,7 +336,7 @@ $(function() {
           if (public.getParameter('code')) {
             var code = public.getParameter('code');
             var token = public.localStorage.get('token');
-            var backUrl = context + 'index.html?paySuccess=WXPAYSUCESS&';
+            var backUrl = window.location.origin + '/index.html?paySuccess=WXPAYSUCESS&';
             var orderNo = public.localStorage.get('NO');
             if (token && code) {
               if (typeof WeixinJSBridge == 'undefined') {
