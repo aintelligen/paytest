@@ -32,7 +32,6 @@ public.ajaxLoadData = function(url, data, callback, type, async) {
       }
     },
     success: function(result, textStatus) {
-      public.ajaxTimeOut = false;
       result = result || '';
       if (callback) {
         callback(result);
@@ -42,27 +41,21 @@ public.ajaxLoadData = function(url, data, callback, type, async) {
       if (errorMsg && errorMsg.status == 200) {
         public.showValidateMsgTrsf(errorMsg.responseText);
       } else {
-        if (public.ajaxTimeOut) {
-          public.showValidateMsgTrsf('链接超时');
-        } else {
-          public.showValidateMsgTrsf('链接服务器失败');
-          if (errorMsg.responseText) {
-            if (typeof errorMsg.responseText == 'string') {
-              try {
-                msg = eval('(' + errorMsg.responseText + ')');
-                msg = msg.errormsg;
-              } catch (e) {}
-            } else {
-              msg = errorMsg.responseText.errormsg;
-            }
+        public.showValidateMsgTrsf('链接服务器失败');
+        if (errorMsg.responseText) {
+          if (typeof errorMsg.responseText == 'string') {
+            try {
+              msg = eval('(' + errorMsg.responseText + ')');
+              msg = msg.errormsg;
+            } catch (e) {}
+          } else {
+            msg = errorMsg.responseText.errormsg;
           }
         }
       }
     }
   });
 };
-//
-public.ajaxTimeOut = false;
 
 /*
  * 时间戳转换
@@ -210,7 +203,6 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
     }
   };
   public.ajaxLoadData(url, data, callback, 'post');
-  public.ajaxTimeOut = true;
 };
 
 /*
