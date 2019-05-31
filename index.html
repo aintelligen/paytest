@@ -123,7 +123,16 @@
         border-radius: 50%;
         background: #44b549;
         position: absolute;
+        animation: load 1.04s ease infinite;
         -webkit-animation: load 1.04s ease infinite;
+      }
+      @keyframes load {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.2;
+        }
       }
       @-webkit-keyframes load {
         0% {

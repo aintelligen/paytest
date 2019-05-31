@@ -270,6 +270,11 @@ public.isWeixin = function() {
     return false;
   }
 };
+//
+function Fen2Yuan(num) {
+  if (typeof num !== 'number' || isNaN(num)) return null;
+  return (num / 100).toFixed(2);
+}
 
 // 获取AMT,NO,TOKEN
 public.getANT = function() {
@@ -287,8 +292,9 @@ public.getANT = function() {
     var amt = paramStr.substring(amtIndex, noIndex).substr(3);
     var no = paramStr.substring(noIndex, tokenIndex).substr(2);
     var token = paramStr.substring(tokenIndex).substr(5);
+    var yuan = Fen2Yuan(Number(amt));
     param = {
-      amt: amt,
+      amt: yuan,
       no: no,
       token: token
     };
