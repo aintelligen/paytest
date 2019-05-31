@@ -18,6 +18,7 @@ public.ajaxLoadData = function(url, data, callback, type, async) {
     data: JSON.stringify(data),
     type: type,
     async: async,
+    timeout: 3000,
     beforeSend: function() {
       var html =
         '<div class="s-loading-bg" id="s-loading-bg" style="position: fixed;left: 0;top:0;width: 100%;height: 100%;background: rgba(0,0,0,0.1);z-index: 333;"> ' +
@@ -25,8 +26,11 @@ public.ajaxLoadData = function(url, data, callback, type, async) {
         '</div>';
       $(document.body).append(html);
     },
-    complete: function() {
+    complete: function(XMLHttpRequest, status) {
       $('#s-loading-bg').remove();
+      if (status == 'timeout') {
+        public.showValidateMsgTrsf('请求超时');
+      }
     },
     dataFilter: function(result) {
       return result;
