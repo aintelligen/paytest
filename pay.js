@@ -1,5 +1,4 @@
 var public = public ? public : {}; //封装
-context = ''; //后台接口
 
 /*
  * ajax
@@ -18,7 +17,7 @@ public.ajaxLoadData = function(url, data, callback, type, async) {
     data: JSON.stringify(data),
     type: type,
     async: async,
-    timeout: 3000,
+    timeout: 4500,
     beforeSend: function() {
       var html =
         '<div class="s-loading-bg" id="s-loading-bg" style="position: fixed;left: 0;top:0;width: 100%;height: 100%;background: rgba(0,0,0,0.1);z-index: 333;"> ' +
@@ -26,14 +25,11 @@ public.ajaxLoadData = function(url, data, callback, type, async) {
         '</div>';
       $(document.body).append(html);
     },
-    complete: function(XMLHttpRequest, status) {
+    complete: function(xhr, status) {
       $('#s-loading-bg').remove();
       if (status == 'timeout') {
         public.showValidateMsgTrsf('请求超时');
       }
-    },
-    dataFilter: function(result) {
-      return result;
     },
     success: function(result, textStatus) {
       result = result || '';
@@ -167,39 +163,23 @@ public.cookieStorage = {
 };
 
 /*
- * 配置信息
- * context：后台接口地址
- * */
-public.pathName = function() {
-  if (window.location.href.match(/192.168|127.0.0.1|localhost/gm)) {
-    //测试环境
-    // context = 'http://localhost:3100/';
-    context = 'http://21246z3a46.51mypc.cn:59984';
-  } else {
-    //正式环境（灰度）
-    context = window.location.origin + '/';
-  }
-  public.localStorage.add('context', context);
-};
-
-/*
  * 微信支付
  * */
 public.onBridgeReady = function(orderNo, backUrl, code, token) {
-  var url = context + '/pay/wxgzhorder';
+  var url = '/pay/wxgzhorder';
   var data = { orderNo: orderNo, backUrl: backUrl, code: code, token: token };
   var callback = function(result) {
-    if (result.code === '00000') {
+    if (result.returnCode === '00000') {
       if (typeof WeixinJSBridge !== 'undefined') {
         WeixinJSBridge.invoke(
           'getBrandWCPayRequest',
           {
-            appId: result.data.appId, //公众号名称，由商户传入
-            timeStamp: result.data.timeStamp, //时间戳，自1970年以来的秒数
-            nonceStr: result.data.nonceStr, //随机串
-            package: result.data.package,
-            signType: result.data.signType, //微信签名方式：
-            paySign: result.data.paySign //微信签名
+            appId: result.appId, //公众号名称，由商户传入
+            timeStamp: result.timeStamp, //时间戳，自1970年以来的秒数
+            nonceStr: result.nonceStr, //随机串
+            package: 'prepay_id=' + result.prepay_id,
+            signType: result.signType, //微信签名方式：
+            paySign: result.paySign //微信签名
           },
           function(res) {
             if (res.errMsg == 'get_brand_wcpay_request:ok') {
@@ -219,7 +199,7 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
         public.showErrMsg('请在微信中打开此链接');
       }
     } else {
-      public.showValidateMsgTrsf(result.message);
+      public.showValidateMsgTrsf(result.returnMessage);
     }
   };
   public.ajaxLoadData(url, data, callback, 'post');
@@ -321,7 +301,6 @@ public.showErrMsg = function(msg) {
 
 $(function() {
   public.isWeixin();
-  public.pathName();
   public.getANT();
   var payment = {
     init: function() {
