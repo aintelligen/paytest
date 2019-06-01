@@ -208,7 +208,7 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
 };
 public.paySuccessCallBack = function(flag, msg) {
   var AMT = public.localStorage.get('AMT');
-  if (!flag) {
+  if (flag) {
     $('.s-money_b.pay-call-back').html('<p>已付款：<span class="s-price">￥' + AMT + '</span></p>');
     $('.pay-detail-box').addClass('hidden');
     $('.pay-success-box').removeClass('hidden');
