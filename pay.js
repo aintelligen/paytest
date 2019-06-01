@@ -199,7 +199,7 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
         public.showErrMsg('请在微信中打开此链接');
       }
     } else {
-      public.showValidateMsgTrsf(result.returnMessage);
+      public.showValidateMsgTrsf(result.returnCode);
     }
   };
   public.ajaxLoadData(url, data, callback, 'post');
