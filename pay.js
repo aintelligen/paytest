@@ -162,15 +162,14 @@ public.cookieStorage = {
   }
 };
 
-
 /*
  * 微信支付
  * */
 public.onBridgeReady = function(orderNo, backUrl, code, token) {
-  var url = '/pay/wxgzhorder?code='+ code +'&token=' + token;
+  var url = '/pay/wxgzhorder?code=' + code + '&token=' + token;
   var data = { orderNo: orderNo, backUrl: backUrl, code: code, token: token };
   var callback = function(result) {
-    if (result.returnCode === 'success') {      
+    if (result.returnCode === 'success') {
       if (typeof WeixinJSBridge !== 'undefined') {
         WeixinJSBridge.invoke(
           'getBrandWCPayRequest',
@@ -327,7 +326,7 @@ $(function() {
           if (public.getParameter('code')) {
             var code = public.getParameter('code');
             var token = public.localStorage.get('token');
-            var backUrl = window.location.origin + '/index.html?paySuccess=WXPAYSUCESS&';
+            var backUrl = window.location.origin + window.location.pathname + '?paySuccess=WXPAYSUCESS&';
             var orderNo = public.localStorage.get('NO');
             if (token && code) {
               if (typeof WeixinJSBridge == 'undefined') {
