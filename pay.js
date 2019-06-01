@@ -182,7 +182,6 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
             paySign: result.paySign //微信签名
           },
           function(res) {
-            alert(JSON.stringify(res));
             if (res.err_msg == 'get_brand_wcpay_request:ok') {
               public.showValidateMsgTrsf('支付成功');
               public.paySuccessCallBack(true, '支付成功');
