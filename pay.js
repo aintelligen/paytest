@@ -202,7 +202,7 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
       public.showValidateMsgTrsf('支付失败');
     }
   };
-  public.ajaxLoadData(url, data, callback, 'get');
+  public.ajaxLoadData(url, '', callback, 'get');
 };
 
 /*
