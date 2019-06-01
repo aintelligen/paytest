@@ -183,16 +183,17 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
           },
           function(res) {
             alert(JSON.stringify(res));
-            if (res.errMsg == 'get_brand_wcpay_request:ok') {
+            if (res.err_msg == 'get_brand_wcpay_request:ok') {
               public.showValidateMsgTrsf('支付成功');
-              window.location.href = backUrl;
-            } else if (res.errMsg == 'get_brand_wcpay_request:cancel') {
+              public.paySuccessCallBack(true, '支付成功');
+            } else if (res.err_msg == 'get_brand_wcpay_request:cancel') {
               public.showValidateMsgTrsf('支付过程中用户取消');
-            } else if (res.errMsg == 'get_brand_wcpay_request:fail') {
+            } else if (res.err_msg == 'get_brand_wcpay_request:fail') {
               public.showValidateMsgTrsf('支付失败');
+              public.paySuccessCallBack(false, '支付失败');
             } else {
-              // public.showValidateMsgTrsf(res.errMsg);
               public.showValidateMsgTrsf('支付失败');
+              public.paySuccessCallBack(false, '请求参数失效，请重新扫码');
             }
           }
         );
@@ -201,10 +202,20 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
         public.showErrMsg('请在微信中打开此链接');
       }
     } else {
-      public.showValidateMsgTrsf('支付失败');
+      public.showValidateMsgTrsf(result.returnMessage);
     }
   };
   public.ajaxLoadData(url, null, callback, 'get');
+};
+public.paySuccessCallBack = function(flag, msg) {
+  var AMT = public.localStorage.get('AMT');
+  if (!flag) {
+    $('.s-money_b.pay-call-back').html('<p>已付款：<span class="s-price">￥' + AMT + '</span></p>');
+    $('.pay-detail-box').addClass('hidden');
+    $('.pay-success-box').removeClass('hidden');
+  } else {
+    $('.s-money_b.pay-call-back').html('<p style="color:#ee5e7b">' + msg + '</p>');
+  }
 };
 
 /*
