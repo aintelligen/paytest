@@ -169,7 +169,7 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
   var url = '/pay/wxgzhorder?code='+ code +'&token=' + token;
   var data = { orderNo: orderNo, backUrl: backUrl, code: code, token: token };
   var callback = function(result) {
-    if (result.returnCode === '00000') {
+    if (result.returnCode === 'success') {
       if (typeof WeixinJSBridge !== 'undefined') {
         WeixinJSBridge.invoke(
           'getBrandWCPayRequest',
@@ -199,7 +199,7 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
         public.showErrMsg('请在微信中打开此链接');
       }
     } else {
-      public.showValidateMsgTrsf(result.returnCode);
+      public.showValidateMsgTrsf('支付失败');
     }
   };
   public.ajaxLoadData(url, data, callback, 'get');
