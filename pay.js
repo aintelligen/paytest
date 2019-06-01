@@ -185,6 +185,7 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
           function(res) {
             if (res.errMsg == 'get_brand_wcpay_request:ok') {
               public.showValidateMsgTrsf('支付成功');
+              window.location.href = backUrl;
             } else if (res.errMsg == 'get_brand_wcpay_request:cancel') {
               public.showValidateMsgTrsf('支付过程中用户取消');
             } else if (res.errMsg == 'get_brand_wcpay_request:fail') {
