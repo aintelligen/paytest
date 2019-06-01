@@ -166,7 +166,7 @@ public.cookieStorage = {
  * 微信支付
  * */
 public.onBridgeReady = function(orderNo, backUrl, code, token) {
-  var url = '/pay/wxgzhorder';
+  var url = '/pay/wxgzhorder?code='+ code +'&token=' + token;
   var data = { orderNo: orderNo, backUrl: backUrl, code: code, token: token };
   var callback = function(result) {
     if (result.returnCode === '00000') {
@@ -202,7 +202,7 @@ public.onBridgeReady = function(orderNo, backUrl, code, token) {
       public.showValidateMsgTrsf(result.returnCode);
     }
   };
-  public.ajaxLoadData(url, data, callback, 'post');
+  public.ajaxLoadData(url, data, callback, 'get');
 };
 
 /*
